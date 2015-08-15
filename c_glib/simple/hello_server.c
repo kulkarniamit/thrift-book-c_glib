@@ -52,7 +52,7 @@ G_END_DECLS
 
 G_DEFINE_TYPE (ExampleHelloSvcHandler,
                example_hello_svc_handler,
-               TYPE_EXAMPLE_HELLO_SVC_HANDLER);
+               TYPE_HELLO_SVC_HANDLER)
 
 static gboolean
 example_hello_svc_handler_get_message (helloSvcIf   *iface,
