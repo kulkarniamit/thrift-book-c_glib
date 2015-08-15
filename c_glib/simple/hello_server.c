@@ -84,7 +84,8 @@ example_hello_svc_handler_class_init (ExampleHelloSvcHandlerClass *klass)
   hello_svc_handler_class->get_message = example_hello_svc_handler_get_message;
 }
 
-int main (void)
+int
+main (void)
 {
   helloSvcHandler *handler;
   helloSvcProcessor *processor;
