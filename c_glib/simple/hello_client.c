@@ -23,6 +23,9 @@ main (void)
   gchar *message = NULL;
   GError *error = NULL;
 
+  Work *work;
+  work = g_object_new (TYPE_WORK, NULL);
+
 #if (!GLIB_CHECK_VERSION (2, 36, 0))
   g_type_init ();
 #endif
@@ -55,13 +58,18 @@ main (void)
     g_clear_error (&error);
   }
 
+  hello_svc_if_get_output (client, &work, &error);
+  if(!error){
+    printf("Output : %d\nMessage : %s\n", work->output, work->message);
+    g_object_unref (work);
+  }
+
   thrift_transport_close (transport, &error);
   success = success && (error == NULL);
 
   g_clear_error (&error);
 
   g_object_unref (client);
-
   g_object_unref (protocol);
   g_object_unref (transport);
   g_object_unref (socket);

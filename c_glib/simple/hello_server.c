@@ -70,6 +70,28 @@ example_hello_svc_handler_get_message (helloSvcIf   *iface,
   return TRUE;
 }
 
+static gboolean
+example_hello_svc_handler_get_output (helloSvcIf   *iface,
+                                       Work     **_return,
+                                       GError      **error)
+{
+  THRIFT_UNUSED_VAR (iface);
+  THRIFT_UNUSED_VAR (error);
+  
+  Work *work;
+  /* Thrift structs are implemented as GObjects, with each of the
+     struct's members exposed as an object property. */
+  work = g_object_new (TYPE_WORK, NULL);
+  g_object_set (work,
+                  "output", 8361,
+                  "message", "Job successfully executed",
+                  NULL);
+  printf ("Server received a message to work and give output\n");
+  *_return = work;
+
+  return TRUE;
+}
+
 static void
 example_hello_svc_handler_init (ExampleHelloSvcHandler *self)
 {
@@ -82,6 +104,7 @@ example_hello_svc_handler_class_init (ExampleHelloSvcHandlerClass *klass)
     HELLO_SVC_HANDLER_CLASS (klass);
 
   hello_svc_handler_class->get_message = example_hello_svc_handler_get_message;
+  hello_svc_handler_class->get_output = example_hello_svc_handler_get_output;
 }
 
 int
