@@ -60,7 +60,14 @@ main (void)
 
   hello_svc_if_get_output (client, &work, &error);
   if(!error){
-    printf("Output : %d\nMessage : %s\n", work->output, work->message);
+    // Following the thrift way of fetching data
+    // https://developer.gnome.org/gobject/stable/gobject-The-Base-Object-Type.html#g-object-get
+    gchar *message_string;
+    gint32 output;
+    g_object_get (work, "message", &message_string, NULL);
+    g_object_get (work, "output", &output, NULL);
+    //printf("Output : %d\nMessage : %s\n", work->output, work->message);
+    printf("Output : %d\nMessage : %s\n", output, message_string);
     g_object_unref (work);
   }
 
